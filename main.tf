@@ -30,7 +30,7 @@ provider "kubernetes" {
 
 module "eks_windows" {
   source                                         = "1nval1dctf/eks-windows/aws"
-  version                                        = "0.5.0"                   
+  version                                        = "0.5.1"             
   eks_autoscaling_group_linux_min_size           = 1
   eks_autoscaling_group_linux_desired_capacity   = 1
   eks_autoscaling_group_linux_max_size           = 2

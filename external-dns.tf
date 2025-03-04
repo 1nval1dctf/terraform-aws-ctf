@@ -3,7 +3,7 @@
 variable "kubernetes_deployment_node_selector" {
   type = map(string)
   default = {
-    "beta.kubernetes.io/os" = "linux"
+    "kubernetes.io/os" = "linux"
   }
   description = "Node selectors for kubernetes deployment"
 }
@@ -16,6 +16,7 @@ resource "kubernetes_deployment" "external_dns_challenge" {
   }
   metadata {
     name = "external-dns-challenge"
+    namespace = "default"
   }
 
   spec {
@@ -37,7 +38,7 @@ resource "kubernetes_deployment" "external_dns_challenge" {
       spec {
         container {
           name  = "external-dns"
-          image = "registry.opensource.zalan.do/teapot/external-dns:latest"
+          image = "registry.k8s.io/external-dns/external-dns:v0.15.1"
           args = concat([
             "--source=service",
             "--source=ingress",
@@ -46,8 +47,12 @@ resource "kubernetes_deployment" "external_dns_challenge" {
             "--policy=upsert-only",
             "--aws-zone-type=public",
             "--registry=txt",
-            "--txt-owner-id=${var.chal_domain_zone_id}"
+            "--txt-owner-id=external-dns"
           ])
+          env {
+            name = "AWS_DEFAULT_REGION"
+            value = var.aws_region
+          }
         }
         security_context {
           fs_group = 65534

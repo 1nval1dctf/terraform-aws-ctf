@@ -38,14 +38,9 @@ variable "registry_email" {
 
 
 variable "chal_domain" {
-  default     = "chal.test.io"
   description = "Domain for chalenges"
   type        = string
-}
-
-variable "chal_domain_zone_id" {
-  description = "zone id for the route53 zone for the chal_domain"
-  type        = string
+  default     = null
 }
 
 variable "ctf_domain" {
