@@ -30,15 +30,15 @@ provider "kubernetes" {
 
 module "eks_windows" {
   source                                         = "1nval1dctf/eks-windows/aws"
-  version                                        = "0.5.1"             
+  version                                        = "0.5.2"
   eks_autoscaling_group_linux_min_size           = 1
   eks_autoscaling_group_linux_desired_capacity   = 1
-  eks_autoscaling_group_linux_max_size           = 2
+  eks_autoscaling_group_linux_max_size           = 4
   eks_autoscaling_group_windows_min_size         = 0
   eks_autoscaling_group_windows_desired_capacity = 0
   eks_autoscaling_group_windows_max_size         = 0
-  enable_metrics_server                          = false
-  enable_cluster_autoscaler                      = false
+  enable_metrics_server                          = true
+  enable_cluster_autoscaler                      = true
   enable_cloudwatch_exported                     = false
   external_dns_support                           = true
   eks_cluster_name                               = "ctf-eks"
