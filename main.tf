@@ -3,11 +3,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.88"
+      version = "6.17.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.35.1"
+      version = "2.38.0"
     }
   }
 }
@@ -30,7 +30,7 @@ provider "kubernetes" {
 
 module "eks_windows" {
   source                                         = "1nval1dctf/eks-windows/aws"
-  version                                        = "0.5.2"
+  version                                        = "0.5.3"
   eks_autoscaling_group_linux_min_size           = 1
   eks_autoscaling_group_linux_desired_capacity   = 1
   eks_autoscaling_group_linux_max_size           = 4
@@ -81,7 +81,7 @@ resource "kubernetes_secret" "regcred" {
 
 module "ctfd" {
   source                            = "1nval1dctf/ctfd/aws"
-  version                           = "1.1.8"     
+  version                           = "1.1.10"     
   force_destroy_challenge_bucket    = true
   force_destroy_log_bucket          = true
   db_deletion_protection            = false
